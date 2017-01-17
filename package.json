@@ -27,11 +27,13 @@
   "author": "Tuomo Oila",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.4.7",
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
     "cors": "^2.7.1",
     "express": "^4.13.3",
-    "resource-router-middleware": "^0.5.1"
+    "resource-router-middleware": "^0.5.1",
+    "sqlite": "^2.2.4"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",

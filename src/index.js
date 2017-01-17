@@ -19,18 +19,18 @@ app.use(bodyParser.json({
 	limit : config.bodyLimit
 }));
 
-// connect to db
-initializeDb( db => {
+initializeDb(db => {
 
-	// internal middleware
-	app.use(middleware({ config, db }));
+    Promise.resolve()
+      .then(() => db.open('./database.sqlite', { Promise }))
+      .then(() => db.migrate(/*{ force: 'last' }*/))
+      .catch((err) => console.error(err.stack))
 
-	// api router
-	app.use('/api', api({ config, db }));
+    app.use(middleware({ config, db }));
+    app.use('/api', api({ config, db }));
+    app.server.listen(process.env.PORT || config.port);
 
-	app.server.listen(process.env.PORT || config.port);
-
-	console.log(`Started on port ${app.server.address().port}`);
+    console.log(`Started on port ${app.server.address().port}`);
 });
 
 export default app;

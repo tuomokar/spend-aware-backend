@@ -16,8 +16,9 @@ export default ({ config, db }) => resource({
 	},
 
 	/** GET / - List all entities */
-	index({ params }, res) {
-		res.json(items);
+	async index({ params },  res) {
+        let allItems = await db.all('SELECT * FROM item');
+		res.json(allItems);
 	},
 
 	/** POST / - Create a new entity */
