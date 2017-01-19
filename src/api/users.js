@@ -1,46 +1,41 @@
 import resource from 'resource-router-middleware';
-import Item from '../models/item';
+import User from '../models/user';
 
 export default ({ config, db }) => resource({
 
 	/** Property name to store preloaded entity on `request`. */
-	id : 'item',
+	id : 'user',
 
 	/** For requests with an `id`, you can auto-load the entity.
 	 *  Errors terminate the request, success sets `req[id] = data`.
 	 */
 	async load(req, id, callback) {
-        let item = await Item.findOne(db, id);
-        let err = item ? null : 'Not found';
-		callback(err, item);
+        let user = await User.findOne(db, id);
+        let err = user ? null : 'Not found';
+		callback(err, user);
 	},
 
 	/** GET / - List all entities */
 	async index({ params },  res) {
-        let allItems = await Item.findAll(db);
-		res.json(allItems);
+        let allUsers = await User.findAll(db);
+		res.json(allUsers);
 	},
 
 	/** POST / - Create a new entity */
 	async create({ body }, res) {
-        await Item.create(db, body.name);
+        User.create(db, body.username, body.password);
 		res.json(body);
 	},
 
 	/** GET /:id - Return a given entity */
-	async read({ item }, res) {
-		res.json(item);
+	async read({ user }, res) {
+		res.json(user);
 	},
 
 	/** PUT /:id - Update a given entity */
-	async update({ item, body }, res) {
-        await Item.update(db, body.name, body.id);
+	async update({ user, body }, res) {
+        await User.update(db, body.password, body.id);
 		res.sendStatus(204);
 	},
 
-	/** DELETE /:id - Delete a given entity */
-	async delete({ item }, res) {
-        await db.all('DELETE FROM item WHERE rowid = ' + item.id);     // oops, not very secure
-		res.sendStatus(204);
-	}
 });
