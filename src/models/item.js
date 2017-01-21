@@ -9,11 +9,11 @@ export default {
     },
 
     create: async (db, name) => {
-        return await db.all('INSERT INTO item (name) VALUES (' + name + ')');  // oops, not very secure
+        return await db.all("INSERT INTO item (name) VALUES ('" + name + "')");  // oops, not very secure
     },
 
     update: async (db, name, id) => {
-        return await db.all('UPDATE item SET name = ' + name + ' WHERE rowid = ' + id); // oops, not very secure
+        return await db.all("UPDATE item SET name = '" + name + "' WHERE rowid = " + id); // oops, not very secure
     },
 
     delete: async (db, id) => {

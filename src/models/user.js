@@ -10,11 +10,11 @@ export default {
     },
 
     create: async (db, username, password) => {
-        return await db.all('INSERT INTO user (username, password) VALUES (' + username + ',' + password +')');  // oops, not very secure
+        return await db.all("INSERT INTO user (username, password) VALUES ('" + username + "', '" + password + "')");  // oops, not very secure
     },
 
     update: async (db, password, id) => {
-        return await db.all('UPDATE user SET password = ' + password + ' WHERE rowid = ' + id); // oops, not very secure
+        return await db.all("UPDATE user SET PASSWORD = '" + password + "' WHERE rowid = " + id); // oops, not very secure
     }
 
 }
