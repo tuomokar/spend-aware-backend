@@ -15,9 +15,14 @@ app.use(cors({
 	exposedHeaders: config.corsHeaders
 }));
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 app.use(bodyParser.json({
 	limit : config.bodyLimit
 }));
+
 
 initializeDb(db => {
 
@@ -29,6 +34,8 @@ initializeDb(db => {
     app.use(middleware({ config, db }));
     app.use('/api', api({ config, db }));
     app.server.listen(process.env.PORT || config.port);
+
+    app.set("secret", '1'); // not very secure is it..
 
     console.log(`Started on port ${app.server.address().port}`);
 });
