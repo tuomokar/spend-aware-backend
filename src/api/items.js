@@ -23,7 +23,7 @@ export default ({ config, db }) => resource({
 
 	/** POST / - Create a new entity */
 	async create({ body }, res) {
-        await Item.create(db, body.name);
+        await Item.create(db, body.name, body.username);
 		res.json(body);
 	},
 
