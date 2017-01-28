@@ -33,7 +33,7 @@
     "cors": "^2.7.1",
     "express": "^4.13.3",
     "jsonwebtoken": "^7.2.1",
-    "resource-router-middleware": "^0.5.1",
+    "resource-router-middleware": "^0.6.0",
     "sqlite": "^2.2.4"
   },
   "devDependencies": {
