@@ -63,6 +63,14 @@ export default {
         } catch (ex) {
             return false;
         }
+    },
+
+    findUserItems: async (db, userId) => {
+        try {
+            return await db.all("SELECT rowid AS id, name, cost, date FROM item WHERE creator = " + userId);
+        } catch(ex) {
+            return false;
+        }
     }
 
 }

@@ -9,7 +9,11 @@ export default {
     },
 
     findAll: async (db) => {
-        return await db.all('SELECT rowid as id, name FROM item');
+        try {
+            return await db.all('SELECT rowid as id, name FROM item');
+        } catch(ex) {
+            return false;
+        }
     },
 
     create: async (db, name, username) => {

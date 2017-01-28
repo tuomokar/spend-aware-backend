@@ -1,6 +1,7 @@
 import resource from 'resource-router-middleware';
 import User from '../models/user';
 
+
 export default ({ config, db }) => resource({
 
 	/** Property name to store preloaded entity on `request`. */
@@ -36,6 +37,6 @@ export default ({ config, db }) => resource({
 	async update({ user, body }, res) {
         await User.update(db, body.password, body.id);
 		res.sendStatus(204);
-	},
+	}
 
 });
