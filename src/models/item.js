@@ -16,10 +16,22 @@ export default {
         }
     },
 
-    create: async (db, name, username) => {
-        let userQuery = "(SELECT rowid FROM user WHERE username = '" + username + "')";
+    create: async (db, item, user) => {
+        if (!item || !user) {
+            return false;
+        }
+
+        let itemName = item.name;
+        let cost = item.cost;
+        let creator = user.id;
+
+        if (!itemName || !cost || !creator) {
+            return false;
+        }
+        let date = Date();
+
         try {
-            return await db.all("INSERT INTO item (name, creator) VALUES ('" + name + "', " + userQuery + ")");  // oops, not very secure
+            return await db.all("INSERT INTO item (name, creator, cost, date) VALUES ('" + itemName + "', " + creator + ", " + cost + ", '" + date + "')");  // oops, not very secure
         } catch(ex) {
             return false;
         }
