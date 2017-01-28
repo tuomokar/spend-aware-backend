@@ -32,7 +32,8 @@ export default ({ config, db }) => resource({
             success: true,
             message: 'Welcome!',
             token: token,
-            username: user.username
+            username: user.username,
+            userId: user.id
         });
 	}
 

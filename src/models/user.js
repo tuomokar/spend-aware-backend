@@ -18,7 +18,7 @@ export default {
     findOneWithUsername: async (db, username) => {
         let userArray;
         try {
-            userArray = await db.all("SELECT username, password FROM user WHERE username = '" + username + "' LIMIT 1");
+            userArray = await db.all("SELECT rowid AS id, username, password FROM user WHERE username = '" + username + "' LIMIT 1");
         } catch(err) {
             return false;
         }
