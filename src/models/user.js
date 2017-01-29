@@ -67,7 +67,7 @@ export default {
 
     findUserItems: async (db, userId) => {
         try {
-            return await db.all("SELECT rowid AS id, name, cost, date FROM item WHERE creator = " + userId);
+            return await db.all("SELECT DISTINCT name FROM item WHERE creator = " + userId);
         } catch(ex) {
             return false;
         }

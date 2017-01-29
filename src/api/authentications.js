@@ -7,9 +7,6 @@ import User from '../models/user';
 
 export default ({ config, db }) => resource({
 
-    /** Property name to store preloaded entity on `request`. */
-	id : 'user',
-
 	/** POST / - Create a new entity */
 	async create({ body }, res) {
         let user = await User.findOneWithUsername(db, body.username);

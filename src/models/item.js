@@ -8,6 +8,24 @@ export default {
         }
     },
 
+    /**
+     * Returns info on all items that match a given name. For example if the
+     * given name is 'Milk', looks up info on all the entries with the name 'Milk'.
+     */
+    findOneWIthCollectiveInfo: async (db, name, userId) => {
+        let userArray;
+        try {
+            userArray = await db.all("SELECT name, cost, SUM(cost) AS totalCost, COUNT(name) AS count FROM item WHERE name = '" + name + "' AND creator = " + userId); // oops not very secure
+        } catch(ex) {
+            return false;
+        }
+
+        if (userArray !== undefined && userArray !== null && userArray[0] !== undefined) {
+            return userArray[0];
+        }
+        return false;
+    },
+
     findAll: async (db) => {
         try {
             return await db.all('SELECT rowid as id, name FROM item');
