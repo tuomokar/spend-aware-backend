@@ -24,8 +24,16 @@ export default ({ config, db }) => resource({
 
 	/** POST / - Create a new entity */
 	async create({ body }, res) {
-        User.create(db, body.username, body.password);
-		res.json(body);
+        let userInfo = await User.create(db, body.username, body.password);
+
+        if (userInfo !== false) {
+            res.json(body);
+        }
+
+        res.json({
+            success: false,
+            message: 'Registration failed, try again'
+        });
 	},
 
 	/** GET /:id - Return a given entity */
