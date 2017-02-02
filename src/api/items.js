@@ -23,8 +23,16 @@ export default ({ config, db }) => resource({
 
 	/** POST / - Create a new entity */
 	async create({ body }, res) {
-        await Item.create(db, body.item, body.user);
-		res.json(body);
+        let item = await Item.create(db, body.item, body.user);
+
+        if (item !== false) {
+            res.json(body);
+        }
+
+        res.json({
+            success: false,
+            message: 'You failed, try again'
+        });
 	},
 
 	/** GET /:id - Return a given entity */
@@ -34,13 +42,28 @@ export default ({ config, db }) => resource({
 
 	/** PUT /:id - Update a given entity */
 	async update({ item, body }, res) {
-        await Item.update(db, body.name, body.id);
-		res.sendStatus(204);
+        let item = await Item.update(db, body.name, body.id);
+
+        if (item !== false) {
+            res.json(body);
+        }
+
+        res.json({
+            success: false,
+            message: 'You failed, try again'
+        });
 	},
 
 	/** DELETE /:id - Delete a given entity */
 	async delete({ item }, res) {
-        await db.all('DELETE FROM item WHERE rowid = ' + item.id);     // oops, not very secure
-		res.sendStatus(204);
+        let item = await db.all('DELETE FROM item WHERE rowid = ' + item.id);     // oops, not very secure
+        if (item !== false) {
+            res.json(item);
+        }
+
+        res.json({
+            success: false,
+            message: 'You failed, try again'
+        });
 	}
 });

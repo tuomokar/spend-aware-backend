@@ -11,18 +11,13 @@ export default ({ config, db }) => resource({
 	async create({ body }, res) {
         let user = await User.findOneWithUsername(db, body.username);
 
-        if (!user || user.username === undefined) {
-            res.json({success: false, message: 'Authentication failed, wrong password or username'});
-            return;
-        }
-
-        if (user.password !== body.password) {
+        if (!user || !user.username || user.password !== body.password) {
             res.json({success: false, message: 'Authentication failed, wrong password or username'});
             return;
         }
 
         let token = Jwt.sign(user, app.get('secret'), {
-            expiresIn: 60
+            expiresIn: 1440
         });
 
 		res.json({

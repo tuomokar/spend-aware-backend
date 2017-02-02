@@ -1,6 +1,10 @@
 export default {
 
     findOne: async (db, id) => {
+        if (!id) {
+            return false;
+        }
+
         try {
             return await db.all('SELECT rowid AS id, name FROM item WHERE rowid = ' + id + ' LIMIT 1'); // oops, not very secure
         } catch(ex) {
@@ -13,6 +17,10 @@ export default {
      * given name is 'Milk', looks up info on all the entries with the name 'Milk'.
      */
     findOneWIthCollectiveInfo: async (db, name, userId) => {
+        if (!name || !userId) {
+            return false;
+        }
+
         let userArray;
         try {
             userArray = await db.all("SELECT name, cost, SUM(cost) AS totalCost, COUNT(name) AS count FROM item WHERE name = '" + name + "' AND creator = " + userId); // oops not very secure
@@ -56,6 +64,10 @@ export default {
     },
 
     update: async (db, name, id) => {
+        if (!name || !id) {
+            return false;
+        }
+
         try {
             return await db.all("UPDATE item SET name = '" + name + "' WHERE rowid = " + id); // oops, not very secure
         } catch(ex) {
@@ -64,6 +76,9 @@ export default {
     },
 
     delete: async (db, id) => {
+        if (!name || !id) {
+            return false;
+        }
         try {
             return await db.all('DELETE FROM item WHERE rowid = ' + id);   // oops, not very secure
         } catch(ex) {

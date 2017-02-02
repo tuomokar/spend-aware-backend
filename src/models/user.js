@@ -2,6 +2,10 @@
 export default {
 
     findOne: async (db, id) => {
+        if (!id) {
+            return false;
+        }
+
         let userArray;
         try {
             userArray = await db.all('SELECT rowid as id, username FROM user WHERE rowid = ' + id + ' LIMIT 1'); // oops, not very secure
@@ -16,6 +20,10 @@ export default {
     },
 
     findOneWithUsername: async (db, username) => {
+        if (!username) {
+            return false;
+        }
+
         let userArray;
         try {
             userArray = await db.all("SELECT rowid AS id, username, password FROM user WHERE username = '" + username + "' LIMIT 1");
@@ -30,6 +38,10 @@ export default {
     },
 
     findIdWithUsername: async (db, username) => {
+        if (!username) {
+            return false;
+        }
+
         let userArray;
         try {
             userArray = await db.all('SELECT rowid as id FROM user WHERE rowid = ' + id + ' LIMIT 1');
@@ -49,6 +61,10 @@ export default {
     },
 
     create: async (db, username, password) => {
+        if (!username || !password) {
+            return false;
+        }
+
         try {
             return await db.all("INSERT INTO user (username, password) VALUES ('" + username + "', '" + password + "')");  // oops, not very secure
         } catch (ex) {
@@ -58,6 +74,10 @@ export default {
     },
 
     update: async (db, password, id) => {
+        if (!password || !id) {
+            return false;
+        }
+
         try {
             return await db.all("UPDATE user SET PASSWORD = '" + password + "' WHERE rowid = " + id); // oops, not very secure
         } catch (ex) {
@@ -66,6 +86,9 @@ export default {
     },
 
     findUserItems: async (db, userId) => {
+        if (!userId) {
+            return false;
+        }
         try {
             return await db.all("SELECT DISTINCT name FROM item WHERE creator = " + userId);
         } catch(ex) {
