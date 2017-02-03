@@ -8,12 +8,17 @@ export default {
 
         let userArray;
         try {
-            userArray = await db.all('SELECT rowid as id, username FROM user WHERE rowid = ' + id + ' LIMIT 1'); // oops, not very secure
+            userArray = await db.all('SELECT rowid as id, username from user where rowid = ' + id); // oops, not very secure
+            console.log(userArray);
         } catch (ex) {
+            console.log('  returning false');
             return false;
         }
 
         if (userArray !== undefined && userArray !== null && userArray[0] !== undefined) {
+            if (userArray.length > 1) {
+                return userArray;
+            }
             return userArray[0];
         }
         return false;
