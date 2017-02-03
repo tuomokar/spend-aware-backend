@@ -9,9 +9,7 @@ export default {
         let userArray;
         try {
             userArray = await db.all('SELECT rowid as id, username from user where rowid = ' + id); // oops, not very secure
-            console.log(userArray);
         } catch (ex) {
-            console.log('  returning false');
             return false;
         }
 
