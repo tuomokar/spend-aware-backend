@@ -8,7 +8,7 @@ export default {
 
         let userArray;
         try {
-            userArray = await db.all('SELECT rowid as id, username from user where rowid = ' + id); // oops, not very secure
+            userArray = await db.all('SELECT rowid as id, username, password from user where rowid = ' + id); // oops, not very secure
         } catch (ex) {
             return false;
         }
