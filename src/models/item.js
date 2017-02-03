@@ -6,7 +6,7 @@ export default {
         }
 
         try {
-            return await db.all('SELECT rowid AS id, name FROM item WHERE rowid = ' + id + ' LIMIT 1'); // oops, not very secure
+            return await db.all('SELECT rowid AS id, name FROM item WHERE rowid = ' + id); // oops, not very secure
         } catch(ex) {
             return false;
         }
