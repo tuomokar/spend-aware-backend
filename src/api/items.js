@@ -42,7 +42,7 @@ export default ({ config, db }) => resource({
 
 	/** PUT /:id - Update a given entity */
 	async update({ item, body }, res) {
-        let item = await Item.update(db, body.name, body.id);
+        item = await Item.update(db, body.name, body.id);
 
         if (item !== false) {
             res.json(body);
@@ -56,7 +56,7 @@ export default ({ config, db }) => resource({
 
 	/** DELETE /:id - Delete a given entity */
 	async delete({ item }, res) {
-        let item = await db.all('DELETE FROM item WHERE rowid = ' + item.id);     // oops, not very secure
+        item = await db.all('DELETE FROM item WHERE rowid = ' + item.id);     // oops, not very secure
         if (item !== false) {
             res.json(item);
         }

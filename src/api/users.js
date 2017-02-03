@@ -43,7 +43,7 @@ export default ({ config, db }) => resource({
 
 	/** PUT /:id - Update a given entity */
 	async update({ user, body }, res) {
-        let user = await User.update(db, body.password, body.id);
+        user = await User.update(db, body.password, body.id);
 
         if (user !== false) {
             res.json(user);
